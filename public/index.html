@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Tea POS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <div id="pos-page" class="page active">
+        <header class="main-header"><h1>Point of Sale</h1><button id="reset-day-btn" class="btn-reset">Reset Day</button></header>
+        <main class="main-content">
+            <div id="category-filters" class="category-filters"></div>
+            <section class="menu-container"><div id="menu-items-pos" class="menu-items"></div></section>
+        </main>
+    </div>
+
+    <div id="inventory-page" class="page">
+        <header class="main-header"><h1>Inventory Management</h1></header>
+        <main class="main-content">
+            <div class="inventory-section">
+                <h2>Manage Menu Items</h2>
+                <div id="menu-items-inventory" class="inventory-list"></div>
+                <button id="add-item-btn" class="btn-primary">Add New Menu Item</button>
+            </div>
+        </main>
+    </div>
+    
+    <div id="orders-page" class="page">
+        <header class="main-header">
+            <h1>Orders</h1>
+            <div class="total-sales-display">
+                <span>Total Sales Today</span>
+                <span id="total-sales-today">₱0.00</span>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="orders-section">
+                <h2>Pending Orders</h2>
+                <div id="pending-orders-container" class="orders-container"></div>
+            </div>
+            <div class="orders-section">
+                <h2>Finished Orders</h2>
+                <div id="finished-orders-container" class="orders-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="history-page" class="page">
+        <header class="main-header"><h1>Sales History</h1></header>
+        <main class="main-content">
+            <div id="sales-history-container" class="history-container"></div>
+        </main>
+    </div>
+
+    <button id="cart-fab" class="cart-fab hidden">
+        <span class="material-icons">shopping_cart</span>
+        <span id="cart-item-count" class="cart-badge">0</span>
+    </button>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Current Order</h3>
+            <div id="cart-items" class="cart-items"></div>
+            <div class="cart-summary">
+                <button id="clear-cart-btn" class="btn-secondary">Clear</button>
+                <strong>Total: ₱<span id="cart-total">0.00</span></strong>
+                <button id="place-order-btn" class="btn-primary" disabled>Place Order</button>
+            </div>
+        </div>
+    </div>
+    <div id="menu-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modal-title">Edit Menu Item</h3>
+            <form id="menu-item-form">
+                <input type="hidden" id="item-id">
+                <label for="item-name">Item Name:</label>
+                <input type="text" id="item-name" required>
+                <div class="category-select-header">
+                    <label for="item-category">Category:</label>
+                    <button type="button" id="manage-categories-btn" class="btn-link">Manage</button>
+                </div>
+                <select id="item-category" required></select>
+                <div id="price-inputs-container"></div>
+                <div class="form-actions">
+                    <button type="button" id="delete-item-btn" class="btn-danger">Delete Item</button>
+                    <button type="submit" id="save-item-btn" class="btn-primary">Save Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="category-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Manage Categories</h3>
+            <div id="category-manager-list"></div>
+            <form id="add-category-form-modal">
+                <input type="text" id="new-category-name" placeholder="New category name" required>
+                <select id="new-category-type" required>
+                    <option value="drink">Drink</option>
+                    <option value="food">Food</option>
+                </select>
+                <button type="submit" class="btn-primary">Add Category</button>
+            </form>
+        </div>
+    </div>
+    <div id="size-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="size-modal-title">Select Size</h3>
+            <div id="size-options" class="size-options"></div>
+        </div>
+    </div>
+    
+    <nav class="bottom-nav">
+        <a href="#pos-page" class="nav-link active"><span class="material-icons">storefront</span><span class="nav-text">POS</span></a>
+        <a href="#inventory-page" class="nav-link"><span class="material-icons">inventory_2</span><span class="nav-text">Inventory</span></a>
+        <a href="#orders-page" class="nav-link"><span class="material-icons">receipt_long</span><span class="nav-text">Orders</span></a>
+        <a href="#history-page" class="nav-link"><span class="material-icons">history</span><span class="nav-text">History</span></a>
+    </nav>
+    
+    <script src="script.js"></script>
+</body>
+</html>
