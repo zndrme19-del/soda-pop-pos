@@ -555,3 +555,32 @@ body {
 .btn-secondary:hover {
     background-color: var(--border-color);
 }
+
+/* --- Floating Action Button (FAB) Styling --- */
+.fab {
+    position: fixed;
+    bottom: 80px; /* Adjust to sit above the bottom nav */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-accent);
+    color: var(--bg-dark-primary);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    z-index: 998; /* Below cart FAB */
+    margin-top: 0; /* Override default button margin */
+}
+
+.fab .material-icons {
+    font-size: 28px;
+}
+
+/* Adjust cart FAB position slightly if needed */
+.cart-fab {
+    bottom: 150px; /* Move cart FAB up to avoid overlap */
+}
