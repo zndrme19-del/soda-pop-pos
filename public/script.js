@@ -398,3 +398,110 @@ document.addEventListener('DOMContentLoaded', () => {
     const initialize = () => { fetchData(); showPage('pos-page'); };
     initialize();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // --- STATE & DOM REFERENCES ---
+
+    const calculatorFab = document.getElementById('calculator-fab'); // New
+    const calculatorModal = document.getElementById('calculator-modal'); // New
+    const calcDisplay = document.getElementById('calc-display'); // New
+    const calcButtons = calculatorModal.querySelector('.calc-buttons'); // New
+    const calculatorModalCloseBtn = calculatorModal.querySelector('.close-button'); // New
+
+    // --- Calculator State ---
+    let currentInput = '';
+    let previousInput = '';
+    let operator = null;
+
+    // --- CALCULATOR LOGIC ---
+    const updateDisplay = () => {
+        calcDisplay.value = currentInput || '0';
+    };
+
+    const handleNumber = (number) => {
+        if (currentInput === '0' && number === '0') return;
+        if (number === '.' && currentInput.includes('.')) return;
+        currentInput = currentInput + number;
+    };
+
+    const handleOperator = (op) => {
+        if (currentInput === '' && previousInput === '') return;
+        if (currentInput !== '') {
+            if (previousInput !== '') {
+                // Perform calculation if there's a pending operation
+                calculate();
+            }
+            previousInput = currentInput;
+            currentInput = '';
+        }
+        operator = op;
+    };
+
+    const calculate = () => {
+        if (previousInput === '' || currentInput === '' || operator === null) return;
+        const prev = parseFloat(previousInput);
+        const curr = parseFloat(currentInput);
+        let result;
+
+        switch (operator) {
+            case '+': result = prev + curr; break;
+            case '-': result = prev - curr; break;
+            case '*': result = prev * curr; break;
+            case '/': result = prev / curr; break;
+            default: return;
+        }
+        currentInput = result.toString();
+        operator = null;
+        previousInput = '';
+    };
+
+    const clearCalculator = () => {
+        currentInput = '';
+        previousInput = '';
+        operator = null;
+        updateDisplay();
+    };
+
+    const handleCalcButtonClick = (event) => {
+        const button = event.target;
+        if (!button.matches('button')) return;
+
+        const value = button.textContent;
+
+        if (button.classList.contains('operator')) {
+            handleOperator(value);
+        } else if (button.classList.contains('equals')) {
+            calculate();
+        } else if (button.classList.contains('clear')) {
+            clearCalculator();
+        } else { // Number or decimal point
+            handleNumber(value);
+        }
+        updateDisplay();
+    };
+
+    // --- EVENT LISTENERS ---
+    // ... (keep all existing listeners)
+    calculatorFab.addEventListener('click', () => {
+        calculatorModal.style.display = 'block';
+        clearCalculator(); // Reset calculator when opened
+    });
+    calculatorModalCloseBtn.addEventListener('click', () => {
+        calculatorModal.style.display = 'none';
+    });
+    calcButtons.addEventListener('click', handleCalcButtonClick);
+
+    // Update window click listener to include calculator modal
+    window.addEventListener('click', (e) => {
+        if (e.target == itemModal || e.target == sizeModal || e.target == cartModal || e.target == calculatorModal) { // Added calculatorModal
+            e.target.style.display = 'none';
+        }
+        if (e.target == categoryModal) { 
+            categoryModal.style.display = 'none'; 
+            populateCategoryDropdown(); 
+        }
+    });
+
+    // --- INITIALIZE ---
+    // ... (keep existing initialize function)
+});

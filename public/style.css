@@ -584,3 +584,71 @@ body {
 .cart-fab {
     bottom: 150px; /* Move cart FAB up to avoid overlap */
 }
+
+/* --- Calculator FAB Positioning --- */
+.calculator-fab {
+    bottom: 80px; /* Position above nav bar */
+    right: 90px; /* Position to the left of cart FAB */
+    background-color: var(--secondary-accent); /* Use a different color */
+}
+
+/* --- Calculator Modal & Interface --- */
+.calculator-modal-content {
+    max-width: 300px; /* Make modal narrower */
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#calc-display {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.5rem;
+    background-color: var(--bg-dark-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 6px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.calc-buttons button {
+    padding: 1rem 0.5rem;
+    font-size: 1.2rem;
+    background-color: var(--bg-dark-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.calc-buttons button:hover {
+    background-color: var(--border-color);
+}
+
+.calc-buttons button.operator {
+    background-color: var(--secondary-accent);
+    color: var(--bg-dark-primary);
+    font-weight: bold;
+}
+
+.calc-buttons button.equals {
+    grid-column: span 4; /* Make equals button span full width */
+    background-color: var(--primary-accent);
+    color: var(--bg-dark-primary);
+    font-weight: bold;
+}
+.calc-buttons button.clear {
+    background-color: var(--primary-red);
+    color: white;
+    font-weight: bold;
+}
